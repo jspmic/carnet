@@ -23,7 +23,7 @@ while True:
 	if course=='quit': break
 	notes = manager.course_verify(db_table,course)[1] #/**/
 	print("Previous grades: ",notes)
-	print("Succeeded")
+	print("Succeeded!")
 	append = input("Append(y/n): ")
 
 	if (append=="y" and course!=''):

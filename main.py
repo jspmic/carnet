@@ -1,5 +1,9 @@
 from function import *
 
+"""This file is one example of how we can use the function.py.
+You can create any other 'main.py' file of your choce using function.py as the core module.
+This was just one example of how we can use function.py by using a DB"""
+
 while True:
 	db_name = input("Name: ").capitalize()
 	db_table = input("Quarter: ")
@@ -14,7 +18,6 @@ try:
 	manager.manage(cmd)
 except:
 	print("DB already exists!")
-
 print("Successful Connection!")
 print("Available DBs: ",*(manager.enum))
 
@@ -48,7 +51,7 @@ while True:
 		manager.manage(f"UPDATE trimestre_{db_table} SET Total='{total}' WHERE Cours='{course}'")
 		manager.manage(f"UPDATE trimestre_{db_table} SET Pourcentage='{percent}' WHERE Cours='{course}'")
 
-#Calculating General Total From TABLE
+#Calculating General Total From TABLE's courses
 cmd = f"SELECT * FROM trimestre_{db_table}"
 grades_total = []
 maxima_total = []
@@ -67,6 +70,13 @@ manager.manage(f"UPDATE trimestre_{db_table} SET Pourcentage='{general_percentag
 print("\nGeneral Total: ",general_total)
 print("General Percentage: ",general_percentage,'\n')
 
-#End
-print("Closing Connection...")
+#End of the road
+choice = int(input("Show ranking(1 or 0): "))
+if choice:
+	os.system('clear') #Replace this line with 'cls' if on Windows
+	print("\nRanking\n-------")
+	rank = ranking(manager,db_table)
+	for name,percent in rank.items():
+		print(f"{name} : {percent}%")
+print("\nClosing Connection...")
 manager.MAIN_DB.close()
